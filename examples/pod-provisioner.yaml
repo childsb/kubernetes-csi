@@ -1,0 +1,14 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: flex-debug.sh-provisioner
+spec:
+  containers:
+    - name: flex-debug.sh-provisioner
+      image: childsb/flex-debug.sh-provisioner
+      securityContext:
+      args:
+        - "-provisioner=external/flex-debug.sh-simple"
+        - "-execCommand=/opt/go/src/github.com/childsb/flex-debug.sh-provisioner/flex-debug.sh/flex-debug.sh/flex-debug.sh"
+      imagePullPolicy: "IfNotPresent"
+
