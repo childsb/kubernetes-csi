@@ -14,3 +14,4 @@ import:
   - pkg/util/uuid
   - pkg/util/wait
   - rest
+- package: github.com/container-storage-interface/spec/lib/go/csi
