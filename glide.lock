@@ -1,5 +1,5 @@
-hash: 4b0897bcd1a0c3d7b21316be1edded0224729bb6121b6c97ec78e8a65b06255f
-updated: 2017-01-05T12:31:39.714949961-06:00
+hash: bbba7ebb000f18ddb9a34be904b63f256fc87a8c1e60d8ee6f8a4094cd595da1
+updated: 2017-10-30T12:42:08.212708107-05:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -8,6 +8,10 @@ imports:
   - internal
 - name: github.com/blang/semver
   version: 31b736133b98f26d5e078ec9eb591666edfd091f
+- name: github.com/container-storage-interface/spec
+  version: 9d4ce05b42cbfc75a7e0c198ab46e6399e01fbb5
+  subpackages:
+  - lib/go/csi
 - name: github.com/coreos/go-oidc
   version: 5644a2f50e2d2d5ba0b474bc5bc55fea1925936d
   subpackages:
@@ -57,10 +61,19 @@ imports:
   version: 02826c3e79038b59d737d3b1c0a1d937f71a4433
   subpackages:
   - lru
+- name: github.com/golang/mock
+  version: 61503c535dc549c7ffc1ff07902345658a0f20a2
+  subpackages:
+  - gomock
 - name: github.com/golang/protobuf
   version: 8616e8ee5e20a1704615e6c8d7afcdac06087a67
   subpackages:
   - proto
+  - protoc-gen-go/descriptor
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/timestamp
 - name: github.com/google/gofuzz
   version: bbcb9da2d746f8bdbd6a936686a0a6067ada0ec5
 - name: github.com/howeyc/gopass
@@ -105,7 +118,9 @@ imports:
   - http2
   - http2/hpack
   - idna
+  - internal/timeseries
   - lex/httplex
+  - trace
 - name: golang.org/x/oauth2
   version: 3c3a985cb79f52a3190fbc056984415ca6763d01
   subpackages:
@@ -142,6 +157,34 @@ imports:
   - internal/remote_api
   - internal/urlfetch
   - urlfetch
+- name: google.golang.org/genproto
+  version: f676e0f3ac6395ff1a529ae59a6670878a8371a6
+  subpackages:
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: a4ff4e29c4bb071c28d9a81571c0d8bbdc644f9f
+  subpackages:
+  - balancer
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - grpclb/grpc_lb_v1/messages
+  - grpclog
+  - internal
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - reflection
+  - reflection/grpc_reflection_v1alpha
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
 - name: gopkg.in/inf.v0
   version: 3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4
 - name: gopkg.in/yaml.v2
