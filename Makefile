@@ -25,11 +25,6 @@ else
     endif
 endif
 
-csi-mock:
-	mkdir -p ./pkg/driver/
-	mockgen -source=${GOPATH}/src/github.com/container-storage-interface/spec/lib/go/csi/csi.pb.go -imports .=github.com/container-storage-interface/spec/lib/go/csi -package=driver -destination=./pkg/driver/driver.mock.go
-.PHONY: csi-mock
-
 container: build quick-container
 .PHONY: container
 
@@ -47,7 +42,17 @@ glide:
 	glide install -v
 .PHONY: glide
 
-all build: glide
+test:
+	go test -v  ./test/csi_driver_test.go
+	go test -v  ./test/co_test.go
+.PHONY: test
+
+csi-mock:
+	mkdir -p ./pkg/driver/
+	mockgen -source=${GOPATH}/src/github.com/container-storage-interface/spec/lib/go/csi/csi.pb.go -imports .=github.com/container-storage-interface/spec/lib/go/csi -package=driver -destination=./pkg/driver/driver.mock.go
+.PHONY: csi-mock
+
+all build: csi-mock glide
 	mkdir -p _output
 	go build -o _output/flex-provisioner ./cmd/flex-provisioner/ 
 .PHONY: all build
