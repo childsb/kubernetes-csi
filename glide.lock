@@ -1,5 +1,5 @@
 hash: bbba7ebb000f18ddb9a34be904b63f256fc87a8c1e60d8ee6f8a4094cd595da1
-updated: 2017-10-30T12:42:08.212708107-05:00
+updated: 2017-10-30T13:03:30.534341586-05:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -162,7 +162,7 @@ imports:
   subpackages:
   - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: a4ff4e29c4bb071c28d9a81571c0d8bbdc644f9f
+  version: c91118c8fa0e1821c8fb860e15aaae5e6acb1add
   subpackages:
   - balancer
   - balancer/roundrobin
