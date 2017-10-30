@@ -15,3 +15,5 @@ import:
   - pkg/util/wait
   - rest
 - package: github.com/container-storage-interface/spec/lib/go/csi
+- package: golang.org/x/net
+- package: google.golang.org/grpc

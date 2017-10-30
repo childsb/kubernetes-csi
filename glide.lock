@@ -1,5 +1,5 @@
-hash: bbba7ebb000f18ddb9a34be904b63f256fc87a8c1e60d8ee6f8a4094cd595da1
-updated: 2017-10-30T13:03:30.534341586-05:00
+hash: 20eb045f6e218e92e075098b02c229ef9b58ee7d1e20fe642551a971d9cc27cd
+updated: 2017-10-30T16:58:16.291115312-05:00
 imports:
 - name: cloud.google.com/go
   version: 3b1ae45394a234c385be014e9a488f2bb6eef821
@@ -56,7 +56,7 @@ imports:
   - proto
   - sortkeys
 - name: github.com/golang/glog
-  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+  version: 44145f04b68cf362d9c4df2182967c2275eaefed
 - name: github.com/golang/groupcache
   version: 02826c3e79038b59d737d3b1c0a1d937f71a4433
   subpackages:

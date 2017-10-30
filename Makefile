@@ -25,12 +25,18 @@ else
     endif
 endif
 
+csi-mock:
+	mkdir -p ./pkg/driver/
+	mockgen -source=${GOPATH}/src/github.com/container-storage-interface/spec/lib/go/csi/csi.pb.go -imports .=github.com/container-storage-interface/spec/lib/go/csi -package=driver -destination=./pkg/driver/driver.mock.go
+.PHONY: csi-mock
+
 container: build quick-container
 .PHONY: container
 
 clean:
 	rm -f kubernetes-csi
 	rm -rf _output
+	rm ./pkg/driver/driver.mock.go
 .PHONY: clean
 
 quick-container:

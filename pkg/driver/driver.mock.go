@@ -5,12 +5,11 @@
 package driver
 
 import (
-
+	. "github.com/container-storage-interface/spec/lib/go/csi"
 	gomock "github.com/golang/mock/gomock"
 	context "golang.org/x/net/context"
 	grpc "google.golang.org/grpc"
 	reflect "reflect"
-	. "github.com/container-storage-interface/spec/lib/go/csi"
 )
 
 // MockisGetSupportedVersionsResponse_Reply is a mock of isGetSupportedVersionsResponse_Reply interface
