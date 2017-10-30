@@ -26,6 +26,11 @@ I wasn't sure if we should split the binaries out or have one mono binary.  So f
 This is nowhere near finished, i just stubbed out the provisioner piece and project structure.
 
 
+**To Test**
+
+`cd test ; go test -v`  # This is BROKEN :(   glide dependencies stepping on each other..
+
+
 
 
 
