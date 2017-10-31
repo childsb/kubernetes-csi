@@ -39,8 +39,14 @@ quick-container:
 .PHONY: quick-container
 
 glide:
-	glide install -v
+	glide up -v
 .PHONY: glide
+
+glide-clean:
+	rm -rf ./vendor
+	rm -f glide.lock
+	glide cc
+.PHONY: glide-clean
 
 test:
 	go test -v  ./test/csi_driver_test.go
