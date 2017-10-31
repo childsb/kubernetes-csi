@@ -25,6 +25,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/api/core/v1"
 )
 
 var (
@@ -64,9 +65,9 @@ func (p *flexProvisioner) Provision(options controller.VolumeOptions) (*v1.Persi
 	return nil, nil
 }
 
-func (p *flexProvisioner) Delete(options controller.VolumeOptions) (*v1.PersistentVolume, error) {
+func (p *flexProvisioner) Delete(volume *v1.PersistentVolume) error {
 
-	return nil, nil
+	return nil
 }
 
 var _ controller.Provisioner = &flexProvisioner{}
