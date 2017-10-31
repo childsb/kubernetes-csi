@@ -17,18 +17,14 @@ limitations under the License.
 package main
 
 import (
-	"flag"
-	"strings"
-	"time"
+
+"flag"
 	"github.com/golang/glog"
+	"github.com/kubernetes-incubator/external-storage/lib/controller"
+	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/pkg/util/validation"
-	"k8s.io/client-go/pkg/util/validation/field"
-	"k8s.io/client-go/pkg/util/wait"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
-	"github.com/kubernetes-incubator/nfs-provisioner/controller"
-	vol "github.com/csi-volumes/kubernetes-csi/pkg/provision"
 )
 
 var (
@@ -38,16 +34,51 @@ var (
 	execCommand    = flag.String("execCommand", "./flex-debug.sh/flexprov/flexprov", "The provisioner executable.")
 )
 
+type flexProvisioner struct {
+	client kubernetes.Interface
+	execCommand string
+	identity string
+}
+
+func NewFlexProvisioner(client kubernetes.Interface, execCommand string, identity string) controller.Provisioner {
+	return newFlexProvisionerInternal(client, execCommand, identity)
+}
+
+func newFlexProvisionerInternal(client kubernetes.Interface, execCommand string, identity string) *flexProvisioner {
+
+	provisioner := &flexProvisioner{
+		client:       client,
+		execCommand:	execCommand,
+		identity:     identity,
+	}
+
+	return provisioner
+}
+
+
+
+
+
+func (p *flexProvisioner) Provision(options controller.VolumeOptions) (*v1.PersistentVolume, error) {
+
+	return nil, nil
+}
+
+func (p *flexProvisioner) Delete(options controller.VolumeOptions) (*v1.PersistentVolume, error) {
+
+	return nil, nil
+}
+
+var _ controller.Provisioner = &flexProvisioner{}
+
 func main() {
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
-	if errs := validateProvisioner(*provisioner, field.NewPath("provisioner")); len(errs) != 0 {
-		glog.Fatalf("Invalid provisioner specified: %v", errs)
-	}
+
 	glog.Infof("Provisioner %s specified", *provisioner)
 
-	if execCommand==nil {
+	if execCommand == nil {
 		glog.Fatalf("Invalid flags specified: must provide provisioner exec command")
 	}
 
@@ -78,24 +109,15 @@ func main() {
 
 	// Create the provisioner: it implements the Provisioner interface expected by
 	// the controller
-	flexProvisioner := vol.NewFlexProvisioner(clientset, *execCommand)
+	flexProvisioner := NewFlexProvisioner(clientset, *execCommand, "something")
 
 	// Start the provision controller which will dynamically provision NFS PVs
-	pc := controller.NewProvisionController(clientset, 15*time.Second, *provisioner, flexProvisioner, serverVersion.GitVersion, false)
-	pc.Run(wait.NeverStop)
-}
+	pc := controller.NewProvisionController(
+		clientset,
+		*provisioner,
+		flexProvisioner,
+		serverVersion.GitVersion,
+	)
 
-// validateProvisioner tests if provisioner is a valid qualified name.
-// https://github.com/kubernetes/kubernetes/blob/release-1.4/pkg/apis/storage/validation/validation.go
-func validateProvisioner(provisioner string, fldPath *field.Path) field.ErrorList {
-	allErrs := field.ErrorList{}
-	if len(provisioner) == 0 {
-		allErrs = append(allErrs, field.Required(fldPath, provisioner))
-	}
-	if len(provisioner) > 0 {
-		for _, msg := range validation.IsQualifiedName(strings.ToLower(provisioner)) {
-			allErrs = append(allErrs, field.Invalid(fldPath, provisioner, msg))
-		}
-	}
-	return allErrs
+	pc.Run(wait.NeverStop)
 }
