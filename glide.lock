@@ -1,5 +1,5 @@
-hash: 856744fa45d62896aa45d682f2bf7ee9a059c3ea917f9554824bde2d985e20df
-updated: 2017-10-31T17:49:01.623043361-05:00
+hash: c8627708bd87e507d419b4967bc450397fed96a1f6dbc9009923f76823aa7c2b
+updated: 2017-10-31T21:34:59.29557418-05:00
 imports:
 - name: github.com/container-storage-interface/spec
   version: 00095b227bfa603de5182c1c80101addb2b23716
@@ -41,7 +41,7 @@ imports:
   subpackages:
   - lru
 - name: github.com/golang/mock
-  version: 13f360950a79f5864a972c786a10a50e44b69541
+  version: 61503c535dc549c7ffc1ff07902345658a0f20a2
   subpackages:
   - gomock
 - name: github.com/golang/protobuf

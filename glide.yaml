@@ -4,15 +4,8 @@ import:
   subpackages:
   - lib/go/csi
 - package: github.com/golang/glog
-- package: github.com/golang/mock
-  version: v1.0.0
-  subpackages:
-  - gomock
 - package: google.golang.org/grpc
-  version: v1.7.1
-  subpackages:
-  - reflection
-  #############
+  version: ^1.7.1
 - package: github.com/kubernetes-incubator/external-storage
   version: ^v3.0.0-beta.2
   subpackages:
@@ -26,8 +19,17 @@ import:
   - rest
   - tools/clientcmd
 
+- package: golang.org/x/net
+  subpackages:
+ # - http2
+  - context
 
-#- package: k8s.io/api
-#  version: kubernetes-1.8.2
-#  subpackages:
-#  - core/v1
+#  version: 1c05540f6879653db88113bc4a2b70aec4bd491f
+ # subpackages:
+ # - context
+
+testImport:
+- package: github.com/golang/mock
+  subpackages:
+  - gomock
+  - mockgen

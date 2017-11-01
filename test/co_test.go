@@ -8,8 +8,29 @@ import (
 	gomock "github.com/golang/mock/gomock"
 	mock_driver "github.com/csi-volumes/kubernetes-csi/pkg/driver"
 
-
+	"fmt"
 )
+
+// SafeGoroutineTester is an implementation of the mock ... interface
+// which can be used to use the mock functions in another go routine.
+//
+// The major issue is that the golang mock framework uses t.Fatalf()
+// which causes a deadlock when called in another goroutine. To avoid
+// this issue, this simple implementation prints the error then panics,
+// which avoids the deadlock.
+type SafeGoroutineTester struct{}
+
+// Errorf prints the error to the screen then panics
+func (s *SafeGoroutineTester) Errorf(format string, args ...interface{}) {
+	fmt.Printf(format, args)
+	panic("MOCK TEST ERROR")
+}
+
+// Fatalf prints the error to the screen then panics
+func (s *SafeGoroutineTester) Fatalf(format string, args ...interface{}) {
+	fmt.Printf(format+"\n", args...)
+	panic("MOCK TEST FATAL FAILURE")
+}
 
 func TestPluginInfoResponse(t *testing.T) {
 
