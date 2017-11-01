@@ -21,7 +21,6 @@ import (
 "flag"
 	"github.com/golang/glog"
 	"github.com/kubernetes-incubator/external-storage/lib/controller"
-	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -33,13 +32,16 @@ var (
 	master         = flag.String("master", "", "Master URL to build a client config from. Either this or kubeconfig needs to be set if the provisioner is being run out of cluster.")
 	kubeconfig     = flag.String("kubeconfig", "", "Absolute path to the kubeconfig file. Either this or master needs to be set if the provisioner is being run out of cluster.")
 	execCommand    = flag.String("execCommand", "./flex-debug.sh/flexprov/flexprov", "The provisioner executable.")
-)
+	)
 
 type flexProvisioner struct {
 	client kubernetes.Interface
 	execCommand string
 	identity string
 }
+
+
+
 
 func NewFlexProvisioner(client kubernetes.Interface, execCommand string, identity string) controller.Provisioner {
 	return newFlexProvisionerInternal(client, execCommand, identity)
@@ -120,5 +122,7 @@ func main() {
 		serverVersion.GitVersion,
 	)
 
-	pc.Run(wait.NeverStop)
+	var stopCh = make(chan struct{})
+
+	pc.Run(stopCh)
 }

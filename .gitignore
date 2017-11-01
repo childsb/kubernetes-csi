@@ -64,4 +64,8 @@ flycheck_*.el
 # snapshot binaries
 /snapshot/_output
 
+# ignore build directory
 _output/
+
+# ignore vendor (must be gen. each time, or use workspace)
+vendor/
